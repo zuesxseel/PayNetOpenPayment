@@ -35,12 +35,12 @@ This is the frontend for the Open Payment mobile application, built with React N
 - Git
 
 ## 🧾 Setup Instructions
-npm install
-npm install react@19.0.0 react-dom@19.0.0 react-native@0.79.2
-npx expo install @shopify/restyle moti react-native-reanimated expo-status-bar
-npx expo start --clear
-or
-npx expo start
+- npm install
+- npm install react@19.0.0 react-dom@19.0.0 react-native@0.79.2
+- npx expo install @shopify/restyle moti react-native-reanimated expo-status-bar
+- npx expo start --clear
+- or
+- npx expo start
 Scan the QR code using Expo Go on your phone
 
 The app will open with hot reload
