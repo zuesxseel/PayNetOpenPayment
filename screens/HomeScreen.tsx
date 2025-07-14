@@ -1,0 +1,123 @@
+"use client"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { ScrollView, TouchableOpacity } from "react-native"
+import { Feather } from "@expo/vector-icons"
+import { Box, Text } from "../components/Themed"
+import { useTheme } from "@shopify/restyle"
+import { LinearGradient } from "expo-linear-gradient"
+import { MotiView } from "moti"
+
+const QuickActionButton = ({ icon, label, index, onPress }) => {
+  const theme = useTheme()
+  return (
+    <MotiView
+      from={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ type: "timing", delay: 100 * index }}
+    >
+      <TouchableOpacity onPress={onPress}>
+        <Box alignItems="center" gap="s">
+          <Box
+            width={60}
+            height={60}
+            borderRadius="xl"
+            backgroundColor="cardPrimaryBackground"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Feather name={icon} size={24} color={theme.colors.primaryAction} />
+          </Box>
+          <Text variant="body" fontSize={14} color="secondaryText">
+            {label}
+          </Text>
+        </Box>
+      </TouchableOpacity>
+    </MotiView>
+  )
+}
+
+const TransactionItem = ({ icon, name, type, amount, index }) => {
+  const theme = useTheme()
+  return (
+    <MotiView
+      from={{ opacity: 0, translateX: -20 }}
+      animate={{ opacity: 1, translateX: 0 }}
+      transition={{ type: "timing", delay: 200 + 100 * index }}
+    >
+      <Box flexDirection="row" alignItems="center" paddingVertical="m">
+        <Box
+          width={44}
+          height={44}
+          borderRadius="xl"
+          backgroundColor="blueLight"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Feather name={icon} size={20} color={theme.colors.primaryAction} />
+        </Box>
+        <Box flex={1} marginLeft="m">
+          <Text variant="body" fontWeight="600" color="primaryText">
+            {name}
+          </Text>
+          <Text variant="body" fontSize={14}>
+            {type}
+          </Text>
+        </Box>
+        <Text variant="body" fontWeight="bold" color={amount.startsWith("+") ? "success" : "primaryText"}>
+          {amount}
+        </Text>
+      </Box>
+    </MotiView>
+  )
+}
+
+export default function HomeScreen({ navigation }) {
+  const theme = useTheme()
+
+  return (
+    <Box flex={1} backgroundColor="mainBackground">
+      <SafeAreaView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Box padding="l">
+            <Text variant="body">Good Morning,</Text>
+            <Text variant="title1">Alex</Text>
+          </Box>
+
+          <MotiView
+            from={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "timing" }}
+          >
+            <LinearGradient
+              colors={[theme.colors.gradientStart, theme.colors.gradientEnd]}
+              style={{ marginHorizontal: theme.spacing.l, borderRadius: theme.borderRadii.l, padding: theme.spacing.l }}
+            >
+              <Text variant="body" color="primaryActionText" opacity={0.8}>
+                Total Balance
+              </Text>
+              <Text variant="hero" color="primaryActionText" marginVertical="s">
+                RM 1,234.56
+              </Text>
+            </LinearGradient>
+          </MotiView>
+
+          <Box flexDirection="row" justifyContent="space-around" padding="l">
+            <QuickActionButton icon="maximize" label="Scan" index={0} onPress={() => navigation.navigate("Scan")} />
+            <QuickActionButton icon="arrow-up-right" label="Pay" index={1} onPress={() => {}} />
+            <QuickActionButton icon="plus-circle" label="Top Up" index={2} onPress={() => {}} />
+            <QuickActionButton icon="file-text" label="Bills" index={3} onPress={() => {}} />
+          </Box>
+
+          <Box paddingHorizontal="l">
+            <Text variant="title2" marginBottom="m">
+              Recent Activity
+            </Text>
+            <TransactionItem icon="shopping-cart" name="FamilyMart" type="Payment" amount="- RM 12.50" index={0} />
+            <TransactionItem icon="arrow-down-left" name="Top Up" type="e-Wallet" amount="+ RM 100.00" index={1} />
+            <TransactionItem icon="coffee" name="Starbucks" type="Payment" amount="- RM 21.00" index={2} />
+          </Box>
+        </ScrollView>
+      </SafeAreaView>
+    </Box>
+  )
+}
