@@ -35,6 +35,7 @@ This is the frontend for the Open Payment mobile application, built with React N
 - Git
 
 ## 🧾 Setup Instructions
+- cd frontend
 - npm install
 - npm install react@19.0.0 react-dom@19.0.0 react-native@0.79.2
 - npx expo install @shopify/restyle moti react-native-reanimated expo-status-bar
