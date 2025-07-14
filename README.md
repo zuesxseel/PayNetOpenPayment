@@ -41,7 +41,7 @@ This is the frontend for the Open Payment mobile application, built with React N
 - npx expo start --clear
 - or
 - npx expo start
-Scan the QR code using Expo Go on your phone
+- Scan the QR code using Expo Go on your phone
 
 The app will open with hot reload
 
