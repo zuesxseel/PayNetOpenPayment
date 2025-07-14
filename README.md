@@ -35,48 +35,11 @@ This is the frontend for the Open Payment mobile application, built with React N
 - Git
 
 ## 🧾 Setup Instructions
-
-### 1. Clone the Repo
-
-```bash
-git clone <your-repository-url>
-cd open-payment-app
-2. Install Dependencies
-bash
-Copy
-Edit
 npm install
-Then ensure all Expo-compatible versions are installed:
-
-bash
-Copy
-Edit
 npm install react@19.0.0 react-dom@19.0.0 react-native@0.79.2
 npx expo install @shopify/restyle moti react-native-reanimated expo-status-bar
-3. Enable New Architecture + Hermes
-In app.json, add:
-
-json
-Copy
-Edit
-{
-  "expo": {
-    "jsEngine": "hermes",
-    "experimental": {
-      "newArchEnabled": true
-    }
-  }
-}
-Then clear cache:
-
-bash
-Copy
-Edit
 npx expo start --clear
-📱 Running the App
-bash
-Copy
-Edit
+or
 npx expo start
 Scan the QR code using Expo Go on your phone
 
