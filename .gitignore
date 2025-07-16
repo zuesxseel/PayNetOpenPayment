@@ -15,6 +15,7 @@ backend/node_modules/
 # Expo/Metro
 frontend/.expo/
 frontend/.expo-shared/
+frontend/.next/
 
 # OS/Editor
 .DS_Store
