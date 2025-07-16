@@ -1,0 +1,43 @@
+# This is a React Native / Expo project. Dependencies are managed in package.json.
+# This file lists the key packages for informational purposes.
+# To install, run: npm install
+
+# Core Expo & React Native
+expo
+react
+react-native
+
+# Navigation
+@react-navigation/native
+@react-navigation/bottom-tabs
+@react-navigation/stack
+react-native-screens
+react-native-safe-area-context
+
+# Design System & UI
+@shopify/restyle
+
+# Animation
+moti
+react-native-reanimated
+
+# UI & Styling
+expo-linear-gradient
+react-native-svg
+@expo/vector-icons
+
+# Additional required packages
+# Run these commands after npm install:
+npx expo install @shopify/restyle moti react-native-reanimated
+
+# Key Features Implemented:
+# ✅ Dual login flows (User & Merchant)
+# ✅ Complete navigation with proper stacks
+# ✅ Multi-network QR code support (DuitNow, PayNow, UPI, PromptPay, QRIS)
+# ✅ Payment processing and success screens
+# ✅ Cross-border FX savings tracking
+# ✅ T+ Tree investment with progress visualization
+# ✅ Comprehensive transaction history
+# ✅ Smooth animations and modern UI
+# ✅ Network-specific routing and color coding
+# ✅ Environmental impact tracking

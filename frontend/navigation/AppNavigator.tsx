@@ -16,6 +16,7 @@ import HomeScreen from "../screens/HomeScreen"
 import ScanScreen from "../screens/ScanScreen"
 import WalletScreen from "../screens/WalletScreen"
 import ProfileScreen from "../screens/ProfileScreen"
+import AccountDetailsScreen from "../screens/AccountDetailsScreen"
 
 // Merchant App Screens
 import MerchantDashboardScreen from "../screens/merchant/MerchantDashboardScreen"
@@ -57,6 +58,13 @@ const WalletStack = () => (
   </Stack.Navigator>
 )
 
+const ProfileStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="ProfileHome" component={ProfileScreen} />
+    <Stack.Screen name="AccountDetails" component={AccountDetailsScreen} />
+  </Stack.Navigator>
+)
+
 const MerchantStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="MerchantDashboard" component={MerchantDashboardScreen} />
@@ -92,7 +100,7 @@ const UserTabs = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Scan" component={ScanStack} />
       <Tab.Screen name="Wallet" component={WalletStack} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
     </Tab.Navigator>
   )
 }
@@ -127,7 +135,7 @@ const MerchantTabs = () => {
       <Tab.Screen name="Dashboard" component={MerchantStack} />
       <Tab.Screen name="Transactions" component={MerchantStack} />
       <Tab.Screen name="Analytics" component={MerchantStack} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
     </Tab.Navigator>
   )
 }
