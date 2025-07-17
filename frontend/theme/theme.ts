@@ -12,7 +12,9 @@ const palette = {
   gray2: "#E5E7EB",
   gray3: "#6B7280",
   redError: "#FF4D4F",
+  redLight: "#FFF1F0",
   orangeWarning: "#FF8C00",
+  orangeLight: "#FFF7E6",
 }
 
 const theme = createTheme({
@@ -27,7 +29,10 @@ const theme = createTheme({
     cardBorder: palette.gray2,
     success: palette.greenSuccess,
     error: palette.redError,
+    danger: palette.redError,
+    dangerLight: palette.redLight,
     warning: palette.orangeWarning,
+    warningLight: palette.orangeLight,
     gradientStart: palette.bluePrimary,
     gradientEnd: palette.blueDark,
     // Add missing colors that were causing Restyle errors
@@ -72,9 +77,18 @@ const theme = createTheme({
       fontWeight: "bold",
       color: "primaryText",
     },
+    title3: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: "primaryText",
+    },
     body: {
       fontSize: 16,
       lineHeight: 24,
+      color: "secondaryText",
+    },
+    caption: {
+      fontSize: 12,
       color: "secondaryText",
     },
     button: {
