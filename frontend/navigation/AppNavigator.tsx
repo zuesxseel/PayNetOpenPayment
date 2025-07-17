@@ -11,19 +11,27 @@ import WelcomeScreen from "../screens/WelcomeScreen"
 import UserLoginScreen from "../screens/UserLoginScreen"
 import MerchantLoginScreen from "../screens/MerchantLoginScreen"
 
+// eKYC Registration Screens
+import RegisterStartScreen from "../screens/RegisterStartScreen"
+import ScanICScreen from "../screens/ScanICScreen"
+import FacialVerificationScreen from "../screens/FacialVerificationScreen"
+import ConfirmDetailsScreen from "../screens/ConfirmDetailsScreen"
+import AIVerificationScreen from "../screens/AIVerificationScreen"
+import VerificationSuccessScreen from "../screens/VerificationSuccessScreen"
+import VerificationFailedScreen from "../screens/VerificationFailedScreen"
+
 // User App Screens
 import HomeScreen from "../screens/HomeScreen"
 import ScanScreen from "../screens/ScanScreen"
 import WalletScreen from "../screens/WalletScreen"
 import ProfileScreen from "../screens/ProfileScreen"
-import AccountDetailsScreen from "../screens/AccountDetailsScreen"
 
 // Merchant App Screens
 import MerchantDashboardScreen from "../screens/merchant/MerchantDashboardScreen"
 import MerchantScanFaceScreen from "../screens/merchant/MerchantScanFaceScreen"
 import MerchantEnterAmountScreen from "../screens/merchant/MerchantEnterAmountScreen"
 import MerchantReceiptScreen from "../screens/merchant/MerchantReceiptScreen"
-import MerchantSettingsScreen from "../screens/merchant/MerchantSettingsScreen"
+import MerchantSettingsScreen from "../screens/merchant/MerchantSettingsScreen" // Declared the variable here
 
 // Additional User Screens
 import TransactionHistoryScreen from "../screens/TransactionHistoryScreen"
@@ -44,6 +52,15 @@ const AuthStack = () => (
     <Stack.Screen name="Welcome" component={WelcomeScreen} />
     <Stack.Screen name="UserLogin" component={UserLoginScreen} />
     <Stack.Screen name="MerchantLogin" component={MerchantLoginScreen} />
+
+    {/* eKYC Registration Flow */}
+    <Stack.Screen name="RegisterStart" component={RegisterStartScreen} />
+    <Stack.Screen name="ScanIC" component={ScanICScreen} />
+    <Stack.Screen name="FacialVerification" component={FacialVerificationScreen} />
+    <Stack.Screen name="ConfirmDetails" component={ConfirmDetailsScreen} />
+    <Stack.Screen name="AIVerification" component={AIVerificationScreen} />
+    <Stack.Screen name="VerificationSuccess" component={VerificationSuccessScreen} />
+    <Stack.Screen name="VerificationFailed" component={VerificationFailedScreen} />
   </Stack.Navigator>
 )
 
@@ -60,13 +77,6 @@ const WalletStack = () => (
     <Stack.Screen name="WalletHome" component={WalletScreen} />
     <Stack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />
     <Stack.Screen name="TreeInvestment" component={TreeInvestmentScreen} />
-  </Stack.Navigator>
-)
-
-const ProfileStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="ProfileHome" component={ProfileScreen} />
-    <Stack.Screen name="AccountDetails" component={AccountDetailsScreen} />
   </Stack.Navigator>
 )
 
@@ -115,7 +125,7 @@ const UserTabs = () => {
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Scan" component={ScanStack} />
       <Tab.Screen name="Wallet" component={WalletStack} />
-      <Tab.Screen name="Profile" component={ProfileStack} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   )
 }
@@ -147,10 +157,11 @@ const MerchantTabs = () => {
         tabBarLabelStyle: { fontWeight: "600", fontSize: 12 },
       })}
     >
-      <Tab.Screen name="Dashboard" component={MerchantStack} />
-      <Tab.Screen name="Transactions" component={MerchantStack} />
-      <Tab.Screen name="Analytics" component={MerchantStack} />
-      <Tab.Screen name="Profile" component={ProfileStack} />
+      <Tab.Screen name="Dashboard" component={MerchantDashboardScreen} />
+      <Tab.Screen name="Transactions" component={MerchantEnterAmountScreen} />
+      <Tab.Screen name="Analytics" component={MerchantReceiptScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Settings" component={MerchantSettingsScreen} /> {/* Added MerchantSettingsScreen here */}
     </Tab.Navigator>
   )
 }
