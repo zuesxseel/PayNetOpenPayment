@@ -31,6 +31,11 @@ import TreeInvestmentScreen from "../screens/TreeInvestmentScreen"
 import PaymentSuccessScreen from "../screens/PaymentSuccessScreen"
 import PaymentProcessingScreen from "../screens/PaymentProcessingScreen"
 
+// Notification and Security Screens
+import NotificationsScreen from "../screens/NotificationsScreen"
+import ZKPBlockedScreen from "../screens/ZKPBlockedScreen"
+import UEBAVerificationScreen from "../screens/UEBAVerificationScreen"
+
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
@@ -75,6 +80,16 @@ const MerchantStack = () => (
   </Stack.Navigator>
 )
 
+const HomeStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="HomeMain" component={HomeScreen} />
+    <Stack.Screen name="Notifications" component={NotificationsScreen} />
+    <Stack.Screen name="ZKPBlocked" component={ZKPBlockedScreen} />
+    <Stack.Screen name="UEBAVerification" component={UEBAVerificationScreen} />
+    <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
+  </Stack.Navigator>
+)
+
 const UserTabs = () => {
   const theme = useTheme()
   return (
@@ -97,7 +112,7 @@ const UserTabs = () => {
         tabBarLabelStyle: { fontWeight: "600", fontSize: 12 },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Scan" component={ScanStack} />
       <Tab.Screen name="Wallet" component={WalletStack} />
       <Tab.Screen name="Profile" component={ProfileStack} />
