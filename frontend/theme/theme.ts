@@ -29,6 +29,7 @@ const theme = createTheme({
     cardBorder: palette.gray2,
     success: palette.greenSuccess,
     error: palette.redError,
+    errorLight: palette.redLight,
     danger: palette.redError,
     dangerLight: palette.redLight,
     warning: palette.orangeWarning,

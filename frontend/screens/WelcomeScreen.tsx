@@ -42,6 +42,12 @@ export default function WelcomeScreen({ navigation }) {
         >
           <Button label="Login as User" onPress={() => navigation.navigate("UserLogin")} />
           <Button
+            label="Register New Account"
+            onPress={() => navigation.navigate("RegisterStart")}
+            variant="outline"
+            marginTop="m"
+          />
+          <Button
             label="Merchant Portal"
             onPress={() => navigation.navigate("MerchantLogin")}
             variant="outline"
