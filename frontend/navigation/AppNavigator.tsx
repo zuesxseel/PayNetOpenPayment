@@ -1,81 +1,198 @@
-"use client"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { createStackNavigator } from "@react-navigation/stack"
-import { NavigationContainer } from "@react-navigation/native"
-import { Feather } from "@expo/vector-icons"
-import { useTheme } from "@shopify/restyle"
-import { useAuth } from "../context/AuthContext"
+"use client";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { Feather } from "@expo/vector-icons";
+import { useTheme } from "@shopify/restyle";
+import { useAuth } from "../context/AuthContext";
 
 // Auth Screens
-import WelcomeScreen from "../screens/WelcomeScreen"
-import UserLoginScreen from "../screens/UserLoginScreen"
-import MerchantLoginScreen from "../screens/MerchantLoginScreen"
+import WelcomeScreen from "../screens/WelcomeScreen";
+import UserLoginScreen from "../screens/UserLoginScreen";
+import MerchantLoginScreen from "../screens/MerchantLoginScreen";
 
 // User App Screens
-import HomeScreen from "../screens/HomeScreen"
-import ScanScreen from "../screens/ScanScreen"
-import WalletScreen from "../screens/WalletScreen"
-import ProfileScreen from "../screens/ProfileScreen"
+import HomeScreen from "../screens/HomeScreen";
+import ScanScreen from "../screens/ScanScreen";
+import WalletScreen from "../screens/WalletScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 // Merchant App Screens
-import MerchantDashboardScreen from "../screens/merchant/MerchantDashboardScreen"
-import MerchantScanFaceScreen from "../screens/merchant/MerchantScanFaceScreen"
-import MerchantEnterAmountScreen from "../screens/merchant/MerchantEnterAmountScreen"
-import MerchantReceiptScreen from "../screens/merchant/MerchantReceiptScreen"
-import MerchantSettingsScreen from "../screens/merchant/MerchantSettingsScreen"
+import MerchantDashboardScreen from "../screens/merchant/MerchantDashboardScreen";
+import MerchantScanFaceScreen from "../screens/merchant/MerchantScanFaceScreen";
+import MerchantEnterAmountScreen from "../screens/merchant/MerchantEnterAmountScreen";
+import MerchantReceiptScreen from "../screens/merchant/MerchantReceiptScreen";
+import MerchantSettingsScreen from "../screens/merchant/MerchantSettingsScreen";
 
 // Additional User Screens
-import TransactionHistoryScreen from "../screens/TransactionHistoryScreen"
-import TreeInvestmentScreen from "../screens/TreeInvestmentScreen"
-import PaymentSuccessScreen from "../screens/PaymentSuccessScreen"
-import PaymentProcessingScreen from "../screens/PaymentProcessingScreen"
+import TransactionHistoryScreen from "../screens/TransactionHistoryScreen";
+import TreeInvestmentScreen from "../screens/TreeInvestmentScreen";
+import TreeLeaderboardScreen from "../screens/TreeLeaderboardScreen";
+import AddMoneyScreen from "../screens/AddMoneyScreen";
+import DepositSuccessScreen from "../screens/DepositSuccessScreen";
+import BadgeRewardScreen from "../screens/BadgeRewardScreen";
+import PaymentSuccessScreen from "../screens/PaymentSuccessScreen";
+import PaymentProcessingScreen from "../screens/PaymentProcessingScreen";
 
-const Tab = createBottomTabNavigator()
-const Stack = createStackNavigator()
+// Type definitions for navigation stacks
+type WalletStackParamList = {
+  WalletHome: undefined;
+  TransactionHistory: undefined;
+  TreeInvestment: {
+    updatedData?: {
+      totalDeposit: number;
+      totalInterestEarned: number;
+      totalDonatedToReforestation: number;
+      daysActive: number;
+      progress: number;
+      badges: Array<{
+        id: string;
+        name: string;
+        emoji: string;
+        description: string;
+        rarity: "common" | "rare" | "epic" | "legendary";
+        unlockedAt: Date;
+      }>;
+    };
+  };
+  TreeLeaderboard: undefined;
+  AddMoney: undefined;
+  DepositSuccess: {
+    depositData: {
+      amount: number;
+      donationPercentage: number;
+      annualInterest: number;
+      donationAmount: number;
+      yourEarnings: number;
+    };
+    progressGained: number;
+  };
+  BadgeReward: {
+    badge: {
+      id: string;
+      name: string;
+      emoji: string;
+      description: string;
+      rarity: "common" | "rare" | "epic" | "legendary";
+      unlockedAt: Date;
+    };
+    treesPlanted: number;
+    co2Offset: number;
+    updatedInvestmentData: {
+      totalDeposit: number;
+      totalInterestEarned: number;
+      totalDonatedToReforestation: number;
+      daysActive: number;
+      progress: number;
+      badges: Array<{
+        id: string;
+        name: string;
+        emoji: string;
+        description: string;
+        rarity: "common" | "rare" | "epic" | "legendary";
+        unlockedAt: Date;
+      }>;
+    };
+  };
+};
+
+const Tab = createBottomTabNavigator();
+const AuthStackNavigator = createStackNavigator();
+const ScanStackNavigator = createStackNavigator();
+const WalletStackNavigator = createStackNavigator<WalletStackParamList>();
+const MerchantStackNavigator = createStackNavigator();
 
 const AuthStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="Welcome" component={WelcomeScreen} />
-    <Stack.Screen name="UserLogin" component={UserLoginScreen} />
-    <Stack.Screen name="MerchantLogin" component={MerchantLoginScreen} />
-  </Stack.Navigator>
-)
+  <AuthStackNavigator.Navigator screenOptions={{ headerShown: false }}>
+    <AuthStackNavigator.Screen name="Welcome" component={WelcomeScreen} />
+    <AuthStackNavigator.Screen name="UserLogin" component={UserLoginScreen} />
+    <AuthStackNavigator.Screen
+      name="MerchantLogin"
+      component={MerchantLoginScreen}
+    />
+  </AuthStackNavigator.Navigator>
+);
 
 const ScanStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="ScanHome" component={ScanScreen} />
-    <Stack.Screen name="PaymentProcessing" component={PaymentProcessingScreen} />
-    <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
-  </Stack.Navigator>
-)
+  <ScanStackNavigator.Navigator screenOptions={{ headerShown: false }}>
+    <ScanStackNavigator.Screen name="ScanHome" component={ScanScreen} />
+    <ScanStackNavigator.Screen
+      name="PaymentProcessing"
+      component={PaymentProcessingScreen}
+    />
+    <ScanStackNavigator.Screen
+      name="PaymentSuccess"
+      component={PaymentSuccessScreen}
+    />
+  </ScanStackNavigator.Navigator>
+);
 
 const WalletStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="WalletHome" component={WalletScreen} />
-    <Stack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />
-    <Stack.Screen name="TreeInvestment" component={TreeInvestmentScreen} />
-  </Stack.Navigator>
-)
+  <WalletStackNavigator.Navigator screenOptions={{ headerShown: false }}>
+    <WalletStackNavigator.Screen name="WalletHome" component={WalletScreen} />
+    <WalletStackNavigator.Screen
+      name="TransactionHistory"
+      component={TransactionHistoryScreen}
+    />
+    <WalletStackNavigator.Screen
+      name="TreeInvestment"
+      component={TreeInvestmentScreen}
+    />
+    <WalletStackNavigator.Screen
+      name="TreeLeaderboard"
+      component={TreeLeaderboardScreen}
+    />
+    <WalletStackNavigator.Screen name="AddMoney" component={AddMoneyScreen} />
+    <WalletStackNavigator.Screen
+      name="DepositSuccess"
+      component={DepositSuccessScreen}
+    />
+    <WalletStackNavigator.Screen
+      name="BadgeReward"
+      component={BadgeRewardScreen}
+    />
+  </WalletStackNavigator.Navigator>
+);
 
 const MerchantStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="MerchantDashboard" component={MerchantDashboardScreen} />
-    <Stack.Screen name="MerchantScanFace" component={MerchantScanFaceScreen} />
-    <Stack.Screen name="MerchantEnterAmount" component={MerchantEnterAmountScreen} />
-    <Stack.Screen name="MerchantReceipt" component={MerchantReceiptScreen} />
-    <Stack.Screen name="MerchantSettings" component={MerchantSettingsScreen} />
-  </Stack.Navigator>
-)
+  <MerchantStackNavigator.Navigator screenOptions={{ headerShown: false }}>
+    <MerchantStackNavigator.Screen
+      name="MerchantDashboard"
+      component={MerchantDashboardScreen}
+    />
+    <MerchantStackNavigator.Screen
+      name="MerchantScanFace"
+      component={MerchantScanFaceScreen}
+    />
+    <MerchantStackNavigator.Screen
+      name="MerchantEnterAmount"
+      component={MerchantEnterAmountScreen}
+    />
+    <MerchantStackNavigator.Screen
+      name="MerchantReceipt"
+      component={MerchantReceiptScreen}
+    />
+    <MerchantStackNavigator.Screen
+      name="MerchantSettings"
+      component={MerchantSettingsScreen}
+    />
+  </MerchantStackNavigator.Navigator>
+);
 
 const UserTabs = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
-          const icons = { Home: "home", Scan: "maximize", Wallet: "credit-card", Profile: "user" }
-          return <Feather name={icons[route.name]} size={24} color={color} />
+          const icons: Record<string, any> = {
+            Home: "home",
+            Scan: "maximize",
+            Wallet: "credit-card",
+            Profile: "user",
+          };
+          return <Feather name={icons[route.name]} size={24} color={color} />;
         },
         tabBarActiveTintColor: theme.colors.primaryAction,
         tabBarInactiveTintColor: theme.colors.secondaryText,
@@ -94,23 +211,23 @@ const UserTabs = () => {
       <Tab.Screen name="Wallet" component={WalletStack} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
-  )
-}
+  );
+};
 
 const MerchantTabs = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
-          const icons = {
+          const icons: Record<string, any> = {
             Dashboard: "home",
             Transactions: "credit-card",
             Analytics: "bar-chart-2",
             Profile: "user",
-          }
-          return <Feather name={icons[route.name]} size={24} color={color} />
+          };
+          return <Feather name={icons[route.name]} size={24} color={color} />;
         },
         tabBarActiveTintColor: theme.colors.primaryAction,
         tabBarInactiveTintColor: theme.colors.secondaryText,
@@ -129,19 +246,23 @@ const MerchantTabs = () => {
       <Tab.Screen name="Analytics" component={MerchantStack} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
-  )
-}
+  );
+};
 
 export default function AppNavigator() {
-  const { isAuthenticated, userType } = useAuth()
+  const { isAuthenticated, userType } = useAuth();
 
   if (!isAuthenticated) {
     return (
       <NavigationContainer>
         <AuthStack />
       </NavigationContainer>
-    )
+    );
   }
 
-  return <NavigationContainer>{userType === "merchant" ? <MerchantTabs /> : <UserTabs />}</NavigationContainer>
+  return (
+    <NavigationContainer>
+      {userType === "merchant" ? <MerchantTabs /> : <UserTabs />}
+    </NavigationContainer>
+  );
 }
