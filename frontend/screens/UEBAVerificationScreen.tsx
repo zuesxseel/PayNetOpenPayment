@@ -1,7 +1,7 @@
 "use client"
 
 import { SafeAreaView } from "react-native-safe-area-context"
-import { TouchableOpacity, Alert, Dimensions } from "react-native"
+import { TouchableOpacity, Alert, Dimensions, ScrollView } from "react-native"
 import { Feather } from "@expo/vector-icons"
 import { Box, Text } from "../components/Themed"
 import { useTheme } from "@shopify/restyle"
@@ -304,7 +304,11 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
           <Box width={24} />
         </Box>
 
-        <Box flex={1} padding="l">
+        <ScrollView 
+          style={{ flex: 1 }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ flexGrow: 1, padding: 24 }}
+        >
           {/* Alert Section */}
           <MotiView
             from={{ opacity: 0, translateY: -20 }}
@@ -374,9 +378,9 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
             from={{ opacity: 0, translateY: 20 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ type: "timing", delay: 400 }}
-            style={{ flex: 1 }}
+            style={{ flex: 1, minHeight: 400 }}
           >
-            <Box backgroundColor="cardPrimaryBackground" borderRadius="m" padding="l" flex={1}>
+            <Box backgroundColor="cardPrimaryBackground" borderRadius="m" padding="l" style={{ overflow: "hidden", minHeight: 350 }}>
               {!showCaptcha ? (
                 <Box alignItems="center" justifyContent="center" flex={1}>
                   <Box
@@ -416,7 +420,16 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
                   <Text variant="body" color="secondaryText" marginBottom="m" textAlign="center">
                     Please complete the reCAPTCHA verification
                   </Text>
-                  <Box flex={1} minHeight={300}>
+                  <Box 
+                    flex={1} 
+                    minHeight={300}
+                    style={{ 
+                      marginHorizontal: 10, 
+                      marginBottom: -12,
+                      borderRadius: 12,
+                      overflow: "hidden"
+                    }}
+                  >
                     <WebView
                       ref={webViewRef}
                       source={{ html: recaptchaHtml }}
@@ -428,27 +441,7 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
                       scalesPageToFit={true}
                       originWhitelist={["*"]}
                     />
-                  </Box>
-
-                  {/* Reset Button */}
-                  <Box marginTop="m">
-                    <TouchableOpacity onPress={() => setShowCaptcha(false)}>
-                      <Box
-                        backgroundColor="cardSecondaryBackground"
-                        paddingVertical="m"
-                        borderRadius="m"
-                        alignItems="center"
-                        flexDirection="row"
-                        justifyContent="center"
-                        gap="s"
-                      >
-                        <Feather name="refresh-cw" size={16} color={theme.colors.secondaryText} />
-                        <Text variant="body" color="secondaryText">
-                          Reset Verification
-                        </Text>
-                      </Box>
-                    </TouchableOpacity>
-                  </Box>
+                  </Box>               
                 </Box>
               )}
 
@@ -496,7 +489,7 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
               </Box>
             </MotiView>
           )}
-        </Box>
+        </ScrollView>
       </SafeAreaView>
     </Box>
   )

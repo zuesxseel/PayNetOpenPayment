@@ -63,12 +63,6 @@ const AuthStack = () => (
     <Stack.Screen name="VerificationFailed" component={VerificationFailedScreen} />
   </Stack.Navigator>
 )
-const ProfileStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="ProfileHome" component={ProfileScreen} />
-    <Stack.Screen name="AccountDetails" component={AccountDetailsScreen} />
-  </Stack.Navigator>
-)
 
 const ScanStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -86,6 +80,18 @@ const WalletStack = () => (
   </Stack.Navigator>
 )
 
+const ProfileStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="ProfileHome" component={ProfileScreen} />
+    <Stack.Screen name="AccountDetails" component={AccountDetailsScreen} />
+    <Stack.Screen name="Notifications" component={NotificationsScreen} />
+    <Stack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />
+    <Stack.Screen name="ZKPBlocked" component={ZKPBlockedScreen} />
+    <Stack.Screen name="UEBAVerification" component={UEBAVerificationScreen} />
+    <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
+  </Stack.Navigator>
+)
+
 const MerchantStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="MerchantDashboard" component={MerchantDashboardScreen} />
@@ -98,7 +104,7 @@ const MerchantStack = () => (
 
 const HomeStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="HomeMain" component={HomeScreen} />
+    <Stack.Screen name="Home" component={HomeScreen} />
     <Stack.Screen name="Notifications" component={NotificationsScreen} />
     <Stack.Screen name="ZKPBlocked" component={ZKPBlockedScreen} />
     <Stack.Screen name="UEBAVerification" component={UEBAVerificationScreen} />
@@ -131,7 +137,7 @@ const UserTabs = () => {
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Scan" component={ScanStack} />
       <Tab.Screen name="Wallet" component={WalletStack} />
-     <Tab.Screen name="Profile" component={ProfileStack} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
     </Tab.Navigator>
   )
 }
