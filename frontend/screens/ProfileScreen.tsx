@@ -32,11 +32,11 @@ const ProfileOption = ({ icon, title, subtitle, onPress, showBadge = false }) =>
 export default function ProfileScreen({ navigation }: any) {
   const { logout } = useAuth()
   const [userProfile] = useState({
-    name: "Ali Rahman",
-    email: "ali.rahman@email.com",
+    name: "Asthon Hall",
+    email: "asthon.hall@email.com",
     phone: "+60 12-345-6789",
     memberSince: "January 2024",
-    avatar: "/placeholder-user.jpg",
+    avatar: require("../public/Asthon_Hall_69.jpg"),
   })
 
   const handleLogout = () => {
@@ -60,7 +60,7 @@ export default function ProfileScreen({ navigation }: any) {
         {/* User Profile Card */}
         <AppCard style={styles.profileCard}>
           <View style={styles.profileHeader}>
-            <Image source={{ uri: userProfile.avatar }} style={styles.avatar} />
+            <Image source={userProfile.avatar} style={styles.avatar} />
             <View style={styles.profileInfo}>
               <Text style={styles.userName}>{userProfile.name}</Text>
               <Text style={styles.userEmail}>{userProfile.email}</Text>

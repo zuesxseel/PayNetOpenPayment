@@ -89,7 +89,7 @@ export default function MerchantDashboardScreen({ navigation }) {
       customerName: "Ahmad Rahman",
       amount: "23.50",
       method: "Face + PIN",
-      time: "15 mins ago",
+      time: "15 mins ago",  
       riskScore: 8,
     },
     {

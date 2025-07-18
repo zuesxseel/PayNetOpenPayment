@@ -7,16 +7,15 @@ import { useTheme } from "@shopify/restyle"
 import { MotiView } from "moti"
 
 const TransactionItem = ({ transaction, index }) => {
-  const theme = useTheme()
-  const getNetworkColor = (type) => {
-    const colors = {
-      DuitNow: theme.colors.duitNowOrange,
-      PayNow: theme.colors.payNowGreen,
-      UPI: theme.colors.upiOrange,
-      PromptPay: theme.colors.promptPayBlue,
-      QRIS: theme.colors.qrisRed,
+  const getNetworkColor = (type: string) => {
+    const colors: Record<string, string> = {
+      DuitNow: "#FF6B35",
+      PayNow: "#00A651",
+      UPI: "#FF9933",
+      PromptPay: "#1E88E5",
+      QRIS: "#E53E3E",
     }
-    return colors[type] || theme.colors.primaryAction
+    return colors[type] || "#0A57E7"
   }
 
   return (
@@ -44,7 +43,7 @@ const TransactionItem = ({ transaction, index }) => {
           <Feather
             name={transaction.type === "credit" ? "arrow-down-left" : "arrow-up-right"}
             size={20}
-            color={transaction.type === "credit" ? theme.colors.success : theme.colors.primaryAction}
+            color={transaction.type === "credit" ? "#00C48C" : "#0A57E7"}
           />
         </Box>
         <Box flex={1} marginLeft="m">
@@ -55,7 +54,7 @@ const TransactionItem = ({ transaction, index }) => {
             {transaction.network} • {transaction.date}
           </Text>
           {transaction.savings && (
-            <Text variant="body" fontSize={12} color="success">
+            <Text variant="body" fontSize={12} style={{ color: "#00C48C" }}>
               Saved RM {transaction.savings}
             </Text>
           )}
@@ -64,14 +63,14 @@ const TransactionItem = ({ transaction, index }) => {
           <Text
             variant="body"
             fontWeight="bold"
-            color={transaction.type === "credit" ? "success" : "primaryText"}
+            style={{ color: transaction.type === "credit" ? "#00C48C" : "#0C0D0F" }}
             fontSize={16}
           >
             {transaction.type === "credit" ? "+" : "-"} {transaction.currency} {transaction.amount}
           </Text>
           {transaction.network !== "DuitNow" && (
             <Box
-              backgroundColor={getNetworkColor(transaction.network)}
+              style={{ backgroundColor: getNetworkColor(transaction.network) }}
               paddingHorizontal="s"
               paddingVertical="xs"
               borderRadius="s"
@@ -88,7 +87,7 @@ const TransactionItem = ({ transaction, index }) => {
   )
 }
 
-export default function TransactionHistoryScreen({ navigation }) {
+export default function TransactionHistoryScreen({ navigation }: { navigation: any }) {
   const theme = useTheme()
 
   const transactions = [
@@ -165,7 +164,7 @@ export default function TransactionHistoryScreen({ navigation }) {
               <Text variant="body" color="secondaryText" marginBottom="s">
                 Total Cross-Border Savings This Month
               </Text>
-              <Text variant="title2" color="success">
+              <Text variant="title2" style={{ color: "#00C48C" }}>
                 RM 14.50
               </Text>
             </Box>

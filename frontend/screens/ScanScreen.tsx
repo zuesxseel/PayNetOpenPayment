@@ -123,7 +123,7 @@ export default function ScanScreen({ navigation }) {
           >
             <Box flexDirection="row" gap="m" marginTop="l">
               <Box flex={1}>
-                <Button label="Upload Random QR" onPress={handleUploadQR} variant="outline" />
+                <Button label="Upload QR" onPress={handleUploadQR} variant="outline" />
               </Box>
               <Box flex={1}>
                 <Button label="Scan & Pay" onPress={handleScan} />
