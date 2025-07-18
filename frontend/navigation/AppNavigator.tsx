@@ -48,6 +48,7 @@ import PaymentProcessingScreen from "../screens/PaymentProcessingScreen"
 import NotificationsScreen from "../screens/NotificationsScreen"
 import ZKPBlockedScreen from "../screens/ZKPBlockedScreen"
 import UEBAVerificationScreen from "../screens/UEBAVerificationScreen"
+import UEBAFacialVerificationScreen from "../screens/UEBAFacialVerificationScreen"
 
 // Type definitions for navigation stacks
 type WalletStackParamList = {
@@ -142,6 +143,7 @@ const ScanStackNavigatorComponent = () => (
   <ScanStack.Navigator screenOptions={{ headerShown: false }}>
     <ScanStack.Screen name="ScanHome" component={ScanScreen} />
     <ScanStack.Screen name="PaymentProcessing" component={PaymentProcessingScreen} />
+    <ScanStack.Screen name="UEBAFacialVerification" component={UEBAFacialVerificationScreen} />
     <ScanStack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
   </ScanStack.Navigator>
 )
@@ -166,6 +168,7 @@ const ProfileStackNavigatorComponent = () => (
     <ProfileInnerStack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />
     <ProfileInnerStack.Screen name="ZKPBlocked" component={ZKPBlockedScreen} />
     <ProfileInnerStack.Screen name="UEBAVerification" component={UEBAVerificationScreen} />
+    <ProfileInnerStack.Screen name="UEBAFacialVerification" component={UEBAFacialVerificationScreen} />
     <ProfileInnerStack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
   </ProfileInnerStack.Navigator>
 )
@@ -186,6 +189,7 @@ const HomeStackNavigatorComponent = () => (
     <HomeInnerStack.Screen name="Notifications" component={NotificationsScreen} />
     <HomeInnerStack.Screen name="ZKPBlocked" component={ZKPBlockedScreen} />
     <HomeInnerStack.Screen name="UEBAVerification" component={UEBAVerificationScreen} />
+    <HomeInnerStack.Screen name="UEBAFacialVerification" component={UEBAFacialVerificationScreen} />
     <HomeInnerStack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
     <HomeInnerStack.Screen name="AccountDetails" component={AccountDetailsScreen} />
     <HomeInnerStack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />

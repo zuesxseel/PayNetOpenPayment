@@ -239,12 +239,12 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
         const paymentAmount = notification?.amount?.replace("RM ", "") || "87.79"
         Alert.alert(
           "Verification Successful! ✅",
-          `Your identity has been verified (Score: ${result.score.toFixed(2)}). Payment of RM ${paymentAmount} has been processed successfully.`,
+          `Your identity has been verified (Score: ${result.score.toFixed(2)}). Proceeding to facial verification for payment security.`,
           [
             {
               text: "Continue",
               onPress: () =>
-                navigation.navigate("PaymentSuccess", {
+                navigation.navigate("UEBAFacialVerification", {
                   qrData: {
                     merchantName: notification?.merchant || "Unknown Merchant",
                     amount: paymentAmount,

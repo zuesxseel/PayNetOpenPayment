@@ -22,7 +22,7 @@ export default function PaymentSuccessScreen({ route, navigation }) {
   }
 
   const networkInfo = getNetworkInfo(qrData.type)
-  const fxSavings = (Math.random() * 10 + 2).toFixed(2) // Random savings between 2-12
+  const fxSavings = (Math.random() * 2.8 + 2).toFixed(2) // Random savings between 2-4.8
 
   return (
     <Box flex={1} backgroundColor="mainBackground">

@@ -171,7 +171,7 @@ export default function HomeScreen({ navigation }) {
               style={{
                 shadowColor: theme.colors.primaryAction,
                 shadowOffset: { width: 0, height: 8 },
-                shadowOpacity: 0.2,
+                shadowOpacity: 0.5,
                 shadowRadius: 12,
                 elevation: 10,
               }}
@@ -179,11 +179,11 @@ export default function HomeScreen({ navigation }) {
               {/* Exact 90-degree gradient background */}
               <LinearGradient
                 colors={[
-                "rgba(31, 51, 237, 1)",
-                "rgba(78, 94, 237, 1)",
-                "rgba(127, 138, 240, 1)",
-                "rgba(157, 166, 242, 1)",
-                "rgba(182, 198, 240, 1)",
+                  "rgba(31, 51, 237, 1)",
+                  "rgba(78, 94, 237, 1)",
+                  "rgba(127, 138, 240, 1)",
+                  "rgba(157, 166, 242, 1)",
+                  "rgba(182, 198, 240, 1)",
                 ]}
                 start={{ x: 0, y: 0.5 }}
                 end={{ x: 1, y: 0.5 }}
