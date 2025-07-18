@@ -6,6 +6,7 @@ import { Box, Text } from "../components/Themed"
 import { useTheme } from "@shopify/restyle"
 import { LinearGradient } from "expo-linear-gradient"
 import { MotiView } from "moti"
+import { useState, useEffect } from "react"
 
 const QuickActionButton = ({ icon, label, index, onPress }) => {
   const theme = useTheme()
@@ -73,7 +74,27 @@ const TransactionItem = ({ icon, name, type, amount, index }) => {
 
 export default function HomeScreen({ navigation }) {
   const theme = useTheme()
-  const { width } = Dimensions.get('window')
+  const { width } = Dimensions.get("window")
+  const targetBalance = 1234.56
+  const [displayBalance, setDisplayBalance] = useState(0)
+
+  useEffect(() => {
+    let start = 0
+    const duration = 600 // milliseconds
+    const increment = targetBalance / (duration / 16) // ~60 frames per second
+
+    const animateCount = () => {
+      start += increment
+      if (start < targetBalance) {
+        setDisplayBalance(Number.parseFloat(start.toFixed(2)))
+        requestAnimationFrame(animateCount)
+      } else {
+        setDisplayBalance(targetBalance)
+      }
+    }
+
+    requestAnimationFrame(animateCount)
+  }, [targetBalance])
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
@@ -82,13 +103,15 @@ export default function HomeScreen({ navigation }) {
           <Box>
             <Box flexDirection="row" alignItems="center" justifyContent="space-between" padding="l">
               <Box>
-                <Text variant="body">Good Morning,</Text>
-                <Text variant="title1">Alex</Text>
+                <Text variant="body" style={{ fontFamily: "Poppins, sans-serif", fontStyle: "italic" }}>
+                  Good Morning,
+                </Text>
+                <Text variant="title1">Asthon Hall</Text>
               </Box>
               <TouchableOpacity onPress={() => navigation.navigate("Notifications")} style={styles.notificationButton}>
                 <Feather name="bell" size={24} color={theme.colors.primaryText} />
                 {/* Pulsing red dot */}
-               <MotiView
+                <MotiView
                   from={{ scale: 1, opacity: 0.8 }}
                   animate={{ scale: 4, opacity: 0 }}
                   transition={{
@@ -99,7 +122,6 @@ export default function HomeScreen({ navigation }) {
                   }}
                   style={[styles.pulseRing, { backgroundColor: "rgba(255, 77, 79, 0.4)" }]}
                 />
-
                 <MotiView
                   from={{ scale: 1, opacity: 0.6 }}
                   animate={{ scale: 3, opacity: 0 }}
@@ -112,7 +134,6 @@ export default function HomeScreen({ navigation }) {
                   }}
                   style={[styles.pulseRing, { backgroundColor: "rgba(255, 77, 79, 0.3)" }]}
                 />
-
                 <MotiView
                   from={{ scale: 1, opacity: 0.4 }}
                   animate={{ scale: 2, opacity: 0 }}
@@ -129,7 +150,6 @@ export default function HomeScreen({ navigation }) {
               </TouchableOpacity>
             </Box>
           </Box>
-
           {/* Animated Total Balance Card */}
           <Box paddingHorizontal="l" marginBottom="l">
             <Box
@@ -190,43 +210,81 @@ export default function HomeScreen({ navigation }) {
                   transform: [{ rotateZ: "5deg" }],
                 }}
               />
-
               <Box flex={1} justifyContent="center" padding="l">
-                <Text variant="body"opacity={0.8} color="primaryActionText" marginBottom="s">
+                <Text
+                  variant="body"
+                  opacity={0.8}
+                  color="primaryActionText"
+                  marginBottom="s"
+                  style={{
+                    fontFamily: "Poppins, sans-serif",
+                  }}
+                >
                   Total Balance
                 </Text>
                 <Text
-                  variant="title1"
-                  fontSize={48}
-                  fontWeight="bold"
+                  variant="hero"
                   color="primaryActionText"
+                  marginVertical="xs"
                   style={{
+                    fontSize: 36,
+                    fontWeight: "bold",
                     textShadowColor: "rgba(0,0,0,0.2)",
                     textShadowOffset: { width: 1, height: 1 },
                     textShadowRadius: 2,
+                    fontFamily: "Poppins, sans-serif",
                   }}
                 >
-                  <Text variant="hero" color="primaryActionText" marginVertical="s">
-                    RM 1,234.56
-                  </Text>
+                  RM {displayBalance.toFixed(2)}
                 </Text>
+                <Box flexDirection="row" alignItems="center" marginTop="xs">
+                  <Box
+                    width={8}
+                    height={8}
+                    backgroundColor="primaryActionText"
+                    opacity={0.75}
+                    marginRight="s"
+                    style={{ borderRadius: 999 }}
+                  />
+                  <Text
+                    fontSize={14}
+                    color="primaryActionText"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: "500",
+                      opacity: 0.8,
+                    }}
+                  >
+                    Green+ · 🌱
+                  </Text>
+                </Box>
               </Box>
             </Box>
           </Box>
-
-
           <Box flexDirection="row" justifyContent="space-around" padding="l">
             <QuickActionButton icon="maximize" label="Scan" index={0} onPress={() => navigation.navigate("Scan")} />
             <QuickActionButton icon="arrow-up-right" label="Pay" index={1} onPress={() => {}} />
             <QuickActionButton icon="plus-circle" label="Top Up" index={2} onPress={() => {}} />
-            <QuickActionButton icon="credit-card" label="Add Card" index={3} onPress={() => {}} />
+            <QuickActionButton
+              icon="credit-card"
+              label="Add Card"
+              index={3}
+              onPress={() => navigation.navigate("AccountDetails")}
+            />
           </Box>
-
           <Box paddingHorizontal="l">
-            <Text variant="title2" marginBottom="m">
-              Recent Activity
-            </Text>
-            <TransactionItem icon="shopping-cart" name="FamilyMart" type="Payment" amount="- RM 12.50" index={0} />
+            <Box flexDirection="row" justifyContent="space-between" alignItems="center" marginBottom="m" >
+              <Text variant="title2" marginRight="m">Recent Activity</Text>
+              <TouchableOpacity onPress={() => navigation.navigate("TransactionHistory")}>
+                <Box flexDirection="row" alignItems="center" marginTop="xs">
+                  <Text variant="body" fontSize={14} color="secondaryText" marginLeft="xs">
+                    View Transactions
+                  </Text>
+                  <Feather name="chevron-right" size={16} marginLeft="s" color={theme.colors.secondaryText} />
+                </Box>
+              </TouchableOpacity>
+            </Box>
+            <TransactionItem icon="shopping-cart" name="FamilyMart" type="Payment" amount="- RM 55.50" index={0} />
             <TransactionItem icon="arrow-down-left" name="Top Up" type="e-Wallet" amount="+ RM 100.00" index={1} />
             <TransactionItem icon="coffee" name="Starbucks" type="Payment" amount="- RM 21.00" index={2} />
           </Box>
