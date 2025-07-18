@@ -255,7 +255,7 @@ export default function HomeScreen({ navigation }) {
                       opacity: 0.8,
                     }}
                   >
-                    Green+ · 🌱
+                    Green+ 🌱
                   </Text>
                 </Box>
               </Box>
