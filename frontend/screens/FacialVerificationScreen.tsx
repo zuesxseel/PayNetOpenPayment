@@ -74,8 +74,8 @@ export default function FacialVerificationScreen({ route, navigation }: { route:
         const currentAttempt = attemptCount + 1
         setAttemptCount(currentAttempt)
         
-        // Random verification result (70% success, 30% failure for better testing)
-        const verificationSuccess = Math.random() > 0.3
+        // First attempt always fails, second attempt always succeeds
+        const verificationSuccess = currentAttempt === 2
         
         if (verificationSuccess) {
           setCaptureComplete(true)
