@@ -6,7 +6,7 @@ import { Box, Text } from "../components/Themed"
 import { useTheme } from "@shopify/restyle"
 import { LinearGradient } from "expo-linear-gradient"
 import { MotiView } from "moti"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 const QuickActionButton = ({ icon, label, index, onPress }) => {
   const theme = useTheme()
@@ -77,23 +77,35 @@ export default function HomeScreen({ navigation }) {
   const { width } = Dimensions.get("window")
   const targetBalance = 1234.56
   const [displayBalance, setDisplayBalance] = useState(0)
+  const animationFrameRef = useRef<number | null>(null)
 
   useEffect(() => {
     let start = 0
-    const duration = 600 // milliseconds
-    const increment = targetBalance / (duration / 16) // ~60 frames per second
+    const duration = 1500 // milliseconds
+    const startTime = Date.now()
 
     const animateCount = () => {
-      start += increment
-      if (start < targetBalance) {
-        setDisplayBalance(Number.parseFloat(start.toFixed(2)))
-        requestAnimationFrame(animateCount)
-      } else {
-        setDisplayBalance(targetBalance)
+      const elapsed = Date.now() - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+      const currentValue = targetBalance * easeOutQuart
+      
+      setDisplayBalance(Number.parseFloat(currentValue.toFixed(2)))
+      
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animateCount)
       }
     }
 
-    requestAnimationFrame(animateCount)
+    animationFrameRef.current = requestAnimationFrame(animateCount)
+    
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+    }
   }, [targetBalance])
 
   return (
@@ -167,13 +179,11 @@ export default function HomeScreen({ navigation }) {
               {/* Exact 90-degree gradient background */}
               <LinearGradient
                 colors={[
-                  "rgba(16,81,232,1)",
-                  "rgba(59,113,237,1)",
-                  "rgba(92,136,237,1)",
-                  "rgba(130,162,232,1)",
-                  "rgba(162,185,235,1)",
-                  "rgba(176,195,235,1)",
-                  "rgba(206,218,240,1)",
+                "rgba(31, 51, 237, 1)",
+                "rgba(78, 94, 237, 1)",
+                "rgba(127, 138, 240, 1)",
+                "rgba(157, 166, 242, 1)",
+                "rgba(182, 198, 240, 1)",
                 ]}
                 start={{ x: 0, y: 0.5 }}
                 end={{ x: 1, y: 0.5 }}
@@ -181,7 +191,7 @@ export default function HomeScreen({ navigation }) {
               />
               <MotiView
                 from={{ translateX: -width }}
-                animate={{ translateX: 0 }}
+                animate={{ translateX: width }}
                 transition={{
                   type: "timing",
                   duration: 3000,
@@ -191,23 +201,41 @@ export default function HomeScreen({ navigation }) {
                 style={{
                   ...StyleSheet.absoluteFillObject,
                   backgroundColor: "rgba(255,255,255,0.1)",
-                  opacity: 0.5,
+                  opacity: 0.8,
                 }}
               />
               <MotiView
                 from={{ translateX: -width * 0.5 }}
-                animate={{ translateX: width * 0.5 }}
+                animate={{ translateX: width * 1.5 }}
                 transition={{
                   type: "timing",
                   duration: 4000,
                   loop: true,
                   repeatReverse: false,
+                  delay: 500,
                 }}
                 style={{
                   ...StyleSheet.absoluteFillObject,
                   backgroundColor: "rgba(255,255,255,0.05)",
                   opacity: 0.3,
                   transform: [{ rotateZ: "5deg" }],
+                }}
+              />
+              <MotiView
+                from={{ translateX: -width * 0.3 }}
+                animate={{ translateX: width * 1.3 }}
+                transition={{
+                  type: "timing",
+                  duration: 5000,
+                  loop: true,
+                  repeatReverse: false,
+                  delay: 1000,
+                }}
+                style={{
+                  ...StyleSheet.absoluteFillObject,
+                  backgroundColor: "rgba(255,255,255,0.03)",
+                  opacity: 0.4,
+                  transform: [{ rotateZ: "-3deg" }],
                 }}
               />
               <Box flex={1} justifyContent="center" padding="l">
