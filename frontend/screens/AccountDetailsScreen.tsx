@@ -180,7 +180,6 @@ const AccountDetailsScreen = ({ navigation }: any) => {
       </View>
 
       <View style={styles.verificationBadge}>
-        <Feather name="shield-check" size={16} color={Colors.success} />
         <Text style={styles.verificationText}>Verified Account</Text>
       </View>
     </AppCard>
@@ -202,7 +201,7 @@ const AccountDetailsScreen = ({ navigation }: any) => {
             <View style={styles.cardHeader}>
               <View style={styles.cardTypeContainer}>
                 <Feather
-                  name={card.type === "credit" ? "credit-card" : "card"}
+                  name="credit-card"
                   size={20}
                   color={card.isActive ? Colors.primary : Colors.textSecondary}
                 />
