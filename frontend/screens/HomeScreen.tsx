@@ -1,6 +1,6 @@
 "use client"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
+import { ScrollView, TouchableOpacity, View, StyleSheet, Dimensions } from "react-native"
 import { Feather } from "@expo/vector-icons"
 import { Box, Text } from "../components/Themed"
 import { useTheme } from "@shopify/restyle"
@@ -73,6 +73,7 @@ const TransactionItem = ({ icon, name, type, amount, index }) => {
 
 export default function HomeScreen({ navigation }) {
   const theme = useTheme()
+  const { width } = Dimensions.get('window')
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
@@ -129,29 +130,96 @@ export default function HomeScreen({ navigation }) {
             </Box>
           </Box>
 
-          <MotiView
-            from={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "timing" }}
-          >
-            <LinearGradient
-              colors={[theme.colors.gradientStart, theme.colors.gradientEnd]}
-              style={{ marginHorizontal: theme.spacing.l, borderRadius: theme.borderRadii.l, padding: theme.spacing.l }}
+          {/* Animated Total Balance Card */}
+          <Box paddingHorizontal="l" marginBottom="l">
+            <Box
+              height={180}
+              borderRadius="xl"
+              overflow="hidden"
+              style={{
+                shadowColor: theme.colors.primaryAction,
+                shadowOffset: { width: 0, height: 8 },
+                shadowOpacity: 0.2,
+                shadowRadius: 12,
+                elevation: 10,
+              }}
             >
-              <Text variant="body" color="primaryActionText" opacity={0.8}>
-                Total Balance
-              </Text>
-              <Text variant="hero" color="primaryActionText" marginVertical="s">
-                RM 1,234.56
-              </Text>
-            </LinearGradient>
-          </MotiView>
+              {/* Exact 90-degree gradient background */}
+              <LinearGradient
+                colors={[
+                  "rgba(16,81,232,1)",
+                  "rgba(59,113,237,1)",
+                  "rgba(92,136,237,1)",
+                  "rgba(130,162,232,1)",
+                  "rgba(162,185,235,1)",
+                  "rgba(176,195,235,1)",
+                  "rgba(206,218,240,1)",
+                ]}
+                start={{ x: 0, y: 0.5 }}
+                end={{ x: 1, y: 0.5 }}
+                style={StyleSheet.absoluteFillObject}
+              />
+              <MotiView
+                from={{ translateX: -width }}
+                animate={{ translateX: 0 }}
+                transition={{
+                  type: "timing",
+                  duration: 3000,
+                  loop: true,
+                  repeatReverse: false,
+                }}
+                style={{
+                  ...StyleSheet.absoluteFillObject,
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  opacity: 0.5,
+                }}
+              />
+              <MotiView
+                from={{ translateX: -width * 0.5 }}
+                animate={{ translateX: width * 0.5 }}
+                transition={{
+                  type: "timing",
+                  duration: 4000,
+                  loop: true,
+                  repeatReverse: false,
+                }}
+                style={{
+                  ...StyleSheet.absoluteFillObject,
+                  backgroundColor: "rgba(255,255,255,0.05)",
+                  opacity: 0.3,
+                  transform: [{ rotateZ: "5deg" }],
+                }}
+              />
+
+              <Box flex={1} justifyContent="center" padding="l">
+                <Text variant="body"opacity={0.8} color="primaryActionText" marginBottom="s">
+                  Total Balance
+                </Text>
+                <Text
+                  variant="title1"
+                  fontSize={48}
+                  fontWeight="bold"
+                  color="primaryActionText"
+                  style={{
+                    textShadowColor: "rgba(0,0,0,0.2)",
+                    textShadowOffset: { width: 1, height: 1 },
+                    textShadowRadius: 2,
+                  }}
+                >
+                  <Text variant="hero" color="primaryActionText" marginVertical="s">
+                    RM 1,234.56
+                  </Text>
+                </Text>
+              </Box>
+            </Box>
+          </Box>
+
 
           <Box flexDirection="row" justifyContent="space-around" padding="l">
             <QuickActionButton icon="maximize" label="Scan" index={0} onPress={() => navigation.navigate("Scan")} />
             <QuickActionButton icon="arrow-up-right" label="Pay" index={1} onPress={() => {}} />
             <QuickActionButton icon="plus-circle" label="Top Up" index={2} onPress={() => {}} />
-            <QuickActionButton icon="file-text" label="Bills" index={3} onPress={() => {}} />
+            <QuickActionButton icon="credit-card" label="Add Card" index={3} onPress={() => {}} />
           </Box>
 
           <Box paddingHorizontal="l">
