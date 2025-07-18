@@ -108,7 +108,7 @@ export default function ProfileScreen({ navigation }: any) {
             onPress={() => {}}
           />
 
-          <ProfileOption icon="bell" title="Notifications" subtitle="Payment alerts, promotions" onPress={() => {}} />
+          <ProfileOption icon="bell" title="Notifications" subtitle="Payment alerts, promotions" onPress={() => navigation.navigate("Notifications")} />
 
           <ProfileOption icon="globe" title="Language & Region" subtitle="English (Malaysia)" onPress={() => {}} />
         </AppCard>
