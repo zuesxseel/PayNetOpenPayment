@@ -1,6 +1,7 @@
 "use client"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { ScrollView, TouchableOpacity, View, StyleSheet, Dimensions } from "react-native"
+import { ScrollView, TouchableOpacity, View, StyleSheet, Dimensions } from "react-native"
 import { Feather } from "@expo/vector-icons"
 import { Box, Text } from "../components/Themed"
 import { useTheme } from "@shopify/restyle"
