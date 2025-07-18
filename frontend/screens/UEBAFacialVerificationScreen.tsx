@@ -139,9 +139,6 @@ export default function UEBAFacialVerificationScreen({ route, navigation }: { ro
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ type: "timing" }}
           >
-            <Text variant="body" textAlign="center" marginBottom="l" color="secondaryText">
-              Please look at the camera for facial verification to complete your payment securely
-            </Text>
           </MotiView>
 
           {/* Large Camera Circle */}
