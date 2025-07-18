@@ -47,12 +47,6 @@ export default function WelcomeScreen({ navigation }) {
             variant="outline"
             marginTop="m"
           />
-          <Button
-            label="Merchant Portal"
-            onPress={() => navigation.navigate("MerchantLogin")}
-            variant="outline"
-            marginTop="m"
-          />
         </MotiView>
       </SafeAreaView>
     </Box>

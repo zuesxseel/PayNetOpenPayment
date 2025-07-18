@@ -83,7 +83,7 @@ export default function AIVerificationScreen({ route, navigation }: { route: any
     { message: "Connecting to national identity database...", status: "pending" },
     { message: "Cross-checking NRIC and personal details with government records...", status: "pending" },
     { message: "Personal details verified with official records.", status: "pending" },
-    { message: "All verification checks passed! 🎉", status: "pending" },
+    { message: "All verification checks passed!", status: "pending" },
     { message: "Account creation in progress...", status: "pending" },
   ]
 
