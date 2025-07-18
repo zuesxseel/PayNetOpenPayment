@@ -11,18 +11,27 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import UserLoginScreen from "../screens/UserLoginScreen";
 import MerchantLoginScreen from "../screens/MerchantLoginScreen";
 
+// eKYC Registration Screens
+import RegisterStartScreen from "../screens/RegisterStartScreen";
+import ScanICScreen from "../screens/ScanICScreen";
+import FacialVerificationScreen from "../screens/FacialVerificationScreen";
+import ConfirmDetailsScreen from "../screens/ConfirmDetailsScreen";
+import AIVerificationScreen from "../screens/AIVerificationScreen";
+import VerificationSuccessScreen from "../screens/VerificationSuccessScreen";
+import VerificationFailedScreen from "../screens/VerificationFailedScreen";
+
 // User App Screens
 import HomeScreen from "../screens/HomeScreen";
 import ScanScreen from "../screens/ScanScreen";
 import WalletScreen from "../screens/WalletScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-
+import AccountDetailsScreen from "@/screens/AccountDetailsScreen";
 // Merchant App Screens
 import MerchantDashboardScreen from "../screens/merchant/MerchantDashboardScreen";
 import MerchantScanFaceScreen from "../screens/merchant/MerchantScanFaceScreen";
 import MerchantEnterAmountScreen from "../screens/merchant/MerchantEnterAmountScreen";
 import MerchantReceiptScreen from "../screens/merchant/MerchantReceiptScreen";
-import MerchantSettingsScreen from "../screens/merchant/MerchantSettingsScreen";
+import MerchantSettingsScreen from "../screens/merchant/MerchantSettingsScreen"; // Declared the variable here
 
 // Additional User Screens
 import TransactionHistoryScreen from "../screens/TransactionHistoryScreen";
@@ -102,15 +111,37 @@ const ScanStackNavigator = createStackNavigator();
 const WalletStackNavigator = createStackNavigator<WalletStackParamList>();
 const MerchantStackNavigator = createStackNavigator();
 
+// Notification and Security Screens
+import NotificationsScreen from "../screens/NotificationsScreen";
+import ZKPBlockedScreen from "../screens/ZKPBlockedScreen";
+import UEBAVerificationScreen from "../screens/UEBAVerificationScreen";
+
+const Stack = createStackNavigator();
+
 const AuthStack = () => (
-  <AuthStackNavigator.Navigator screenOptions={{ headerShown: false }}>
-    <AuthStackNavigator.Screen name="Welcome" component={WelcomeScreen} />
-    <AuthStackNavigator.Screen name="UserLogin" component={UserLoginScreen} />
-    <AuthStackNavigator.Screen
-      name="MerchantLogin"
-      component={MerchantLoginScreen}
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Welcome" component={WelcomeScreen} />
+    <Stack.Screen name="UserLogin" component={UserLoginScreen} />
+    <Stack.Screen name="MerchantLogin" component={MerchantLoginScreen} />
+
+    {/* eKYC Registration Flow */}
+    <Stack.Screen name="RegisterStart" component={RegisterStartScreen} />
+    <Stack.Screen name="ScanIC" component={ScanICScreen} />
+    <Stack.Screen
+      name="FacialVerification"
+      component={FacialVerificationScreen}
     />
-  </AuthStackNavigator.Navigator>
+    <Stack.Screen name="ConfirmDetails" component={ConfirmDetailsScreen} />
+    <Stack.Screen name="AIVerification" component={AIVerificationScreen} />
+    <Stack.Screen
+      name="VerificationSuccess"
+      component={VerificationSuccessScreen}
+    />
+    <Stack.Screen
+      name="VerificationFailed"
+      component={VerificationFailedScreen}
+    />
+  </Stack.Navigator>
 );
 
 const ScanStack = () => (
@@ -154,6 +185,21 @@ const WalletStack = () => (
   </WalletStackNavigator.Navigator>
 );
 
+const ProfileStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="ProfileHome" component={ProfileScreen} />
+    <Stack.Screen name="AccountDetails" component={AccountDetailsScreen} />
+    <Stack.Screen name="Notifications" component={NotificationsScreen} />
+    <Stack.Screen
+      name="TransactionHistory"
+      component={TransactionHistoryScreen}
+    />
+    <Stack.Screen name="ZKPBlocked" component={ZKPBlockedScreen} />
+    <Stack.Screen name="UEBAVerification" component={UEBAVerificationScreen} />
+    <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
+  </Stack.Navigator>
+);
+
 const MerchantStack = () => (
   <MerchantStackNavigator.Navigator screenOptions={{ headerShown: false }}>
     <MerchantStackNavigator.Screen
@@ -177,6 +223,16 @@ const MerchantStack = () => (
       component={MerchantSettingsScreen}
     />
   </MerchantStackNavigator.Navigator>
+);
+
+const HomeStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Notifications" component={NotificationsScreen} />
+    <Stack.Screen name="ZKPBlocked" component={ZKPBlockedScreen} />
+    <Stack.Screen name="UEBAVerification" component={UEBAVerificationScreen} />
+    <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
+  </Stack.Navigator>
 );
 
 const UserTabs = () => {
@@ -206,10 +262,10 @@ const UserTabs = () => {
         tabBarLabelStyle: { fontWeight: "600", fontSize: 12 },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Scan" component={ScanStack} />
       <Tab.Screen name="Wallet" component={WalletStack} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
     </Tab.Navigator>
   );
 };
@@ -241,10 +297,12 @@ const MerchantTabs = () => {
         tabBarLabelStyle: { fontWeight: "600", fontSize: 12 },
       })}
     >
+      {" "}
       <Tab.Screen name="Dashboard" component={MerchantStack} />
       <Tab.Screen name="Transactions" component={MerchantStack} />
       <Tab.Screen name="Analytics" component={MerchantStack} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
+      <Tab.Screen name="Settings" component={MerchantSettingsScreen} />
     </Tab.Navigator>
   );
 };

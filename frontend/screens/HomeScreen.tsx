@@ -1,6 +1,6 @@
 "use client"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { ScrollView, TouchableOpacity } from "react-native"
+import { ScrollView, TouchableOpacity, View, StyleSheet } from "react-native"
 import { Feather } from "@expo/vector-icons"
 import { Box, Text } from "../components/Themed"
 import { useTheme } from "@shopify/restyle"
@@ -78,9 +78,55 @@ export default function HomeScreen({ navigation }) {
     <Box flex={1} backgroundColor="mainBackground">
       <SafeAreaView>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Box padding="l">
-            <Text variant="body">Good Morning,</Text>
-            <Text variant="title1">Alex</Text>
+          <Box>
+            <Box flexDirection="row" alignItems="center" justifyContent="space-between" padding="l">
+              <Box>
+                <Text variant="body">Good Morning,</Text>
+                <Text variant="title1">Alex</Text>
+              </Box>
+              <TouchableOpacity onPress={() => navigation.navigate("Notifications")} style={styles.notificationButton}>
+                <Feather name="bell" size={24} color={theme.colors.primaryText} />
+                {/* Pulsing red dot */}
+               <MotiView
+                  from={{ scale: 1, opacity: 0.8 }}
+                  animate={{ scale: 4, opacity: 0 }}
+                  transition={{
+                    type: "timing",
+                    duration: 2000,
+                    loop: true,
+                    repeatReverse: false,
+                  }}
+                  style={[styles.pulseRing, { backgroundColor: "rgba(255, 77, 79, 0.4)" }]}
+                />
+
+                <MotiView
+                  from={{ scale: 1, opacity: 0.6 }}
+                  animate={{ scale: 3, opacity: 0 }}
+                  transition={{
+                    type: "timing",
+                    duration: 2000,
+                    loop: true,
+                    repeatReverse: false,
+                    delay: 500,
+                  }}
+                  style={[styles.pulseRing, { backgroundColor: "rgba(255, 77, 79, 0.3)" }]}
+                />
+
+                <MotiView
+                  from={{ scale: 1, opacity: 0.4 }}
+                  animate={{ scale: 2, opacity: 0 }}
+                  transition={{
+                    type: "timing",
+                    duration: 2000,
+                    loop: true,
+                    repeatReverse: false,
+                    delay: 1000,
+                  }}
+                  style={[styles.pulseRing, { backgroundColor: "rgba(255, 77, 79, 0.2)" }]}
+                />
+                <View style={styles.notificationDot} />
+              </TouchableOpacity>
+            </Box>
           </Box>
 
           <MotiView
@@ -121,3 +167,29 @@ export default function HomeScreen({ navigation }) {
     </Box>
   )
 }
+
+const styles = StyleSheet.create({
+  notificationButton: {
+    position: "relative",
+    padding: 8,
+  },
+  pulseRing: {
+    position: "absolute",
+    top: 6,
+    right: 6,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#FF4D4F",
+  },
+  notificationDot: {
+    position: "absolute",
+    top: 6,
+    right: 6,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#FF4D4F",
+    zIndex: 1,
+  },
+})
