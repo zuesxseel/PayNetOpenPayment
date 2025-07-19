@@ -32,8 +32,8 @@ const ProfileOption = ({ icon, title, subtitle, onPress, showBadge = false }) =>
 export default function ProfileScreen({ navigation }: any) {
   const { logout } = useAuth()
   const [userProfile] = useState({
-    name: "Asthon Hall",
-    email: "asthon.hall@email.com",
+    name: "Tan Yan Ho",
+    email: "tanyanho123@email.com",
     phone: "+60 12-345-6789",
     memberSince: "January 2024",
     avatar: require("../public/Asthon_Hall_69.jpg"),

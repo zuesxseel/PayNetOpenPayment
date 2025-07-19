@@ -118,7 +118,7 @@ export default function HomeScreen({ navigation }) {
                 <Text variant="body" style={{ fontFamily: "Poppins, sans-serif", fontStyle: "italic" }}>
                   Good Morning,
                 </Text>
-                <Text variant="title1">Asthon Hall</Text>
+                <Text variant="title1">Tan Yan Ho</Text>
               </Box>
               <TouchableOpacity onPress={() => navigation.navigate("Notifications")} style={styles.notificationButton}>
                 <Feather name="bell" size={24} color={theme.colors.primaryText} />

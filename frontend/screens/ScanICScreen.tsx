@@ -42,12 +42,12 @@ export default function ScanICScreen({ navigation }: { navigation: any }) {
   const handleConfirm = () => {
     // Create mock IC data structure that matches what ConfirmDetailsScreen expects
     const icData = {
-      name: "ALI BIN HASSAN",
-      nric: "901234-56-7890",
-      dateOfBirth: "12 JAN 1990",
-      address: "NO 123, JALAN BUKIT BINTANG, 50200 KUALA LUMPUR",
+      name: "TAN YAN HO",
+      nric: "030918-04-0151",
+      dateOfBirth: "18 SEP 2003",
+      address: "NO 82, JLN PERDANA, TAMAN BUKIT PERDANA 2/30, 83000 BATU PAHAT",
       nationality: "WARGANEGARA",
-      religion: "ISLAM",
+      religion: "BUDDHIST",
       gender: "LELAKI",
       image: capturedImage // Include the captured IC image
     }

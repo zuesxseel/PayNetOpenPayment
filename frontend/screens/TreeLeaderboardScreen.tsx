@@ -351,7 +351,7 @@ export default function TreeLeaderboardScreen({
     },
     {
       rank: 6,
-      name: "A***** L*****", // Current user
+      name: "TAN Y** H**", // Current user
       treesFunded: 23,
       totalDonated: "460.00",
       daysActive: 45,
@@ -376,7 +376,7 @@ export default function TreeLeaderboardScreen({
   ];
 
   const currentUser = leaderboardData.find(
-    (user) => user.name === "A***** L*****"
+    (user) => user.name === "TAN Y** H**"
   );
   const totalTrees = leaderboardData.reduce(
     (sum, user) => sum + user.treesFunded,
@@ -461,7 +461,7 @@ export default function TreeLeaderboardScreen({
               key={user.rank}
               user={user}
               index={index}
-              isCurrentUser={user.name === "A***** L*****"}
+              isCurrentUser={user.name === "TAN Y** H**"}
             />
           ))}
 
