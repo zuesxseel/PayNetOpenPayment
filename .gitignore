@@ -36,3 +36,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Rust build artifacts
+zkp-circuit/target/
+zkp-circuit/Cargo.lock
+**/*.rs.bk
+
+# ZKP circuit specific
+zkp-circuit/*.key
+zkp-circuit/*.pem
+zkp-circuit/criterion/
