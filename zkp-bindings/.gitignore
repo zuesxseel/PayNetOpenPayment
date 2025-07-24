@@ -1,0 +1,113 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Debug builds
+debug/
+release/
+
+# Platform-specific build outputs
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Mobile bindings artifacts
+mobile/target/
+mobile/libs/
+mobile/obj/
+
+# Android specific
+mobile/android/build/
+mobile/android/.gradle/
+mobile/android/local.properties
+*.apk
+*.aab
+*.dex
+*.class
+
+# iOS specific  
+mobile/ios/build/
+mobile/ios/DerivedData/
+mobile/ios/*.xcworkspace/xcuserdata/
+mobile/ios/*.xcodeproj/xcuserdata/
+mobile/ios/*.xcodeproj/project.xcworkspace/xcuserdata/
+*.ipa
+*.app
+
+# Node.js bindings artifacts
+nodejs/target/
+nodejs/node_modules/
+nodejs/build/
+nodejs/dist/
+nodejs/*.node
+nodejs/package-lock.json
+nodejs/yarn.lock
+
+# WebAssembly artifacts
+wasm/target/
+wasm/pkg/
+wasm/www/node_modules/
+wasm/www/dist/
+wasm/*.wasm
+wasm/*.js
+wasm/*.d.ts
+wasm/pkg-*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Test artifacts
+coverage/
+*.gcda
+*.gcno
+*.profdata
+
+# Documentation build
+docs/build/
+book/
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Security sensitive files
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+secrets.json
