@@ -4,8 +4,7 @@
  */
 
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import { zkpService, ZKPVerificationResult, BiometricTemplate } from '../services/zkpService';
-import { ProofData } from '../../zkp-bindings/nodejs/src';
+import { zkpService, ZKPVerificationResult, BiometricTemplate, ProofData } from '../services/zkpService';
 
 export interface ZKPState {
   isInitialized: boolean;

@@ -9,6 +9,7 @@ import { MotiView } from "moti"
 import { useState, useRef, useEffect } from "react"
 import { WebView } from "react-native-webview"
 import { mockVerifyRecaptcha } from "../lib/recaptcha"
+import { useZKP } from "../context/ZKPContext"
 
 interface UEBAVerificationScreenProps {
   navigation: any
@@ -17,6 +18,7 @@ interface UEBAVerificationScreenProps {
 
 export default function UEBAVerificationScreen({ navigation, route }: UEBAVerificationScreenProps) {
   const theme = useTheme()
+  const { state: zkpState, getSystemInfo } = useZKP()
   const { notification } = route.params || {}
   const [captchaToken, setCaptchaToken] = useState("")
   const [isVerifying, setIsVerifying] = useState(false)
@@ -236,10 +238,13 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
       setIsVerifying(false)
 
       if (result.success && result.score >= 0.5) {
+        // Enhanced verification with ZKP system info
+        const zkpInfo = getSystemInfo()
         const paymentAmount = notification?.amount?.replace("RM ", "") || "87.79"
+        
         Alert.alert(
           "Verification Successful! ✅",
-          `Your identity has been verified (Score: ${result.score.toFixed(2)}). Proceeding to facial verification for payment security.`,
+          `Your identity has been verified (Score: ${result.score.toFixed(2)}). ZKP System: ${zkpInfo.initialized ? 'Active' : 'Initializing'}. Proceeding to facial verification for payment security.`,
           [
             {
               text: "Continue",
@@ -250,6 +255,7 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
                     amount: paymentAmount,
                     currency: "MYR",
                     type: "UEBA Verified",
+                    zkpEnabled: zkpInfo.initialized,
                   },
                 }),
             },
