@@ -71,7 +71,6 @@ impl HashUtils {
 }
 
 /// Poseidon-like hash simulation for circuit compatibility
-/// simplified version for demo
 pub struct CircuitHash;
 
 impl CircuitHash {

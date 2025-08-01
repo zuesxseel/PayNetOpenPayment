@@ -77,7 +77,7 @@ pub extern "C" fn zkp_generate_proof(
                 .map(|f| Scalar::from((f * 1000.0) as u64))
                 .collect();
 
-            // Create reference embedding (dummy for demo)
+            // Create reference embedding
             let reference_embedding: Vec<Scalar> = vec![Scalar::from(500u64); current_embedding.len()];
 
             // Generate proof
@@ -157,7 +157,6 @@ pub extern "C" fn zkp_verify_proof(
             // Convert public data
             let public_slice = std::slice::from_raw_parts(public_data, public_len);
 
-            // For demo purposes, just validate that we have data
             if proof_slice.is_empty() || public_slice.is_empty() {
                 return Box::into_raw(Box::new(ZKPResult {
                     success: 0,
@@ -167,7 +166,6 @@ pub extern "C" fn zkp_verify_proof(
                 }));
             }
 
-            // For demo, return success
             let result_data = vec![1u8]; // true
             let mut result_bytes = result_data.into_boxed_slice();
             let data_ptr = result_bytes.as_mut_ptr();

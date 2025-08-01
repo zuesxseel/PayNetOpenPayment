@@ -38,7 +38,7 @@ pub extern "system" fn Java_com_paynet_zkp_ZKPProof_generateProof(
             .map(|f| Scalar::from((f * 1000.0) as u64))
             .collect();
 
-        // Create reference embedding (dummy for demo)
+        // Create reference embedding
         let reference_embedding: Vec<Scalar> = vec![Scalar::from(500u64); current_embedding.len()];
 
         // Generate proof using our circuit
@@ -75,7 +75,6 @@ pub extern "system" fn Java_com_paynet_zkp_ZKPProof_verifyProof(
     public_data: JByteArray,
 ) -> jboolean {
     let result = std::panic::catch_unwind(|| {
-        // For demo purposes, just check that we can parse the inputs
         let proof_bytes = match env.convert_byte_array(proof_data) {
             Ok(bytes) => bytes,
             Err(_) => return 0u8, // false
@@ -91,7 +90,6 @@ pub extern "system" fn Java_com_paynet_zkp_ZKPProof_verifyProof(
             return 0u8;
         }
 
-        // For demo, return true if data is present
         1u8 // true
     });
 

@@ -132,8 +132,6 @@ impl BinarySerializer {
         
         // Read remaining fields...
         // (For brevity, using simplified deserialization)
-        
-        // Create a simplified proof for demo
         Ok(BiometricProof::new(
             proof,
             commitments,

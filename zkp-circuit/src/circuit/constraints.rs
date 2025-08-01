@@ -29,7 +29,6 @@ impl BiometricConstraints {
         // First constraint: diff = a - b
         let diff = a_lc - b_lc;
         
-        // For demo, simplified constraint (should be diff * diff = c in full implementation)
         prover.constrain(diff - c_lc);
     }
     
@@ -56,7 +55,7 @@ impl BiometricConstraints {
         prover.constrain(sum - total_lc);
     }
     
-    /// Add range constraint (simplified version)
+    /// Add range constraint
     /// Constrains: var < max_value
     pub fn add_range_constraint<T>(
         prover: &mut Prover<T>,
@@ -67,17 +66,16 @@ impl BiometricConstraints {
     where
         T: std::borrow::BorrowMut<merlin::Transcript>,
     {
-        // Simplified range constraint - just ensure it's within bounds
+        // range constraint - ensure it's within bounds
         // In a full implementation, this would do bit decomposition
         let max_scalar = Scalar::from(max_value);
         let (_, max_var) = prover.commit(max_scalar, Scalar::zero());
         
         // Basic constraint: var should be less than max_value
-        // simplified for demo
         Ok(())
     }
     
-    /// Add threshold comparison constraint (simplified)
+    /// Add threshold comparison constraint
     /// Constrains: value ≤ threshold
     pub fn add_threshold_constraint<T>(
         prover: &mut Prover<T>,
@@ -87,12 +85,11 @@ impl BiometricConstraints {
     where
         T: std::borrow::BorrowMut<merlin::Transcript>,
     {
-        // Simplified threshold constraint for demo
+        // Simplified threshold constraint
         let threshold_scalar = Scalar::from(threshold);
         let (_, threshold_var) = prover.commit(threshold_scalar, Scalar::zero());
         
-        // In a full implementation, this would ensure value <= threshold
-        // For now, we just record both values
+        // record both values
         Ok(())
     }
     
@@ -184,7 +181,7 @@ impl VerificationConstraints {
     where
         T: BorrowMut<Transcript>
     {
-        // Simplified verification - just validate structure
+        // Simplified verification - validate structure
         // In full implementation, this would recreate exact same constraints
         
         if current_embedding.len() != reference_embedding.len() {

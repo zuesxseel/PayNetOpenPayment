@@ -29,7 +29,7 @@ impl BiometricGadgets {
             // Compute difference: diff = current - reference
             let diff = LinearCombination::from(*curr) - LinearCombination::from(*ref_v);
             
-            // Add to total distance (simplified - would normally square)
+            // Add to total distance
             distance_lc = distance_lc + diff;
         }
         

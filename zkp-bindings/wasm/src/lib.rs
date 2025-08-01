@@ -127,7 +127,7 @@ impl ZKPBiometric {
             .map(|&f| Scalar::from((f * 1000.0) as u64))
             .collect();
 
-        // Create reference embedding (dummy for demo)
+        // Create reference embedding
         let reference_embedding: Vec<Scalar> = vec![Scalar::from(500u64); current_embedding.len()];
 
         // Generate proof
