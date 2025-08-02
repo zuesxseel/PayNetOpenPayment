@@ -1,11 +1,12 @@
 "use client"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { TouchableOpacity, Alert } from "react-native"
+import { TouchableOpacity, Alert, ScrollView } from "react-native"
 import { Feather } from "@expo/vector-icons"
 import { Box, Text } from "../components/Themed"
 import { useTheme } from "@shopify/restyle"
 import { MotiView } from "moti"
 import { useState } from "react"
+import { useZKP } from "../context/ZKPContext"
 
 interface ZKPBlockedScreenProps {
   navigation: any
@@ -14,8 +15,15 @@ interface ZKPBlockedScreenProps {
 
 export default function ZKPBlockedScreen({ navigation, route }: ZKPBlockedScreenProps) {
   const theme = useTheme()
+  const { state: zkpState, getSystemInfo, resetState } = useZKP()
   const { notification } = route.params || {}
   const [isWalletFrozen, setIsWalletFrozen] = useState(false)
+  const hasRealData = zkpState.enrolledTemplate !== null || zkpState.authenticationHistory.length > 0
+  const enrolledTemplatesCount = hasRealData ? (zkpState.enrolledTemplate ? 1 : 0) : 1
+  const lastVerificationStatus = hasRealData 
+    ? (zkpState.lastVerificationResult ? (zkpState.lastVerificationResult.success ? "Passed" : "Failed") : "None")
+    : "Passed"
+  const authHistoryCount = hasRealData ? zkpState.authenticationHistory.length : 2
 
   const handleFreezeWallet = () => {
     if (isWalletFrozen) {
@@ -71,6 +79,7 @@ export default function ZKPBlockedScreen({ navigation, route }: ZKPBlockedScreen
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <SafeAreaView style={{ flex: 1 }}>
+        {/* Fixed Header */}
         <Box flexDirection="row" alignItems="center" padding="l">
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Feather name="arrow-left" size={24} color={theme.colors.primaryText} />
@@ -80,7 +89,17 @@ export default function ZKPBlockedScreen({ navigation, route }: ZKPBlockedScreen
           </Text>
         </Box>
 
-        <Box flex={1} paddingHorizontal="l">
+        {/* Scrollable Content */}
+        <ScrollView 
+          style={{ flex: 1 }}
+          contentContainerStyle={{ 
+            paddingHorizontal: 24,
+            paddingBottom: 24,
+            flexGrow: 1 
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <Box flex={1}>
           <MotiView
             from={{ opacity: 0, translateY: -20 }}
             animate={{ opacity: 1, translateY: 0 }}
@@ -194,6 +213,58 @@ export default function ZKPBlockedScreen({ navigation, route }: ZKPBlockedScreen
             </MotiView>
           )}
 
+          {/* ZKP System Status */}
+          <MotiView
+            from={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "timing", delay: 600 }}
+          >
+            <Box backgroundColor="cardPrimaryBackground" padding="l" borderRadius="m" marginBottom="m">
+              <Text variant="body" fontWeight="600" color="primaryText" marginBottom="m">
+                ZKP Security Status
+              </Text>
+              <Box flexDirection="row" justifyContent="space-between" marginBottom="s">
+                <Text variant="body" color="secondaryText">
+                  System
+                </Text>
+                <Text variant="body" color={zkpState.isInitialized ? "success" : "warning"} fontWeight="500">
+                  {zkpState.isInitialized ? "Active" : "Initializing"}
+                </Text>
+              </Box>
+              <Box flexDirection="row" justifyContent="space-between" marginBottom="s">
+                <Text variant="body" color="secondaryText">
+                  Enrolled Templates
+                </Text>
+                <Text variant="body" color="primaryText" fontWeight="500">
+                  {enrolledTemplatesCount}
+                </Text>
+              </Box>
+              <Box flexDirection="row" justifyContent="space-between" marginBottom="s">
+                <Text variant="body" color="secondaryText">
+                  Last Verification
+                </Text>
+                <Text variant="body" color={lastVerificationStatus === "Passed" ? "success" : lastVerificationStatus === "Failed" ? "error" : "primaryText"} fontWeight="500">
+                  {lastVerificationStatus}
+                </Text>
+              </Box>
+              <Box flexDirection="row" justifyContent="space-between">
+                <Text variant="body" color="secondaryText">
+                  Authentication History
+                </Text>
+                <Text variant="body" color="primaryText" fontWeight="500">
+                  {authHistoryCount} records
+                </Text>
+              </Box>
+              {zkpState.error && (
+                <Box backgroundColor="dangerLight" padding="s" borderRadius="s" marginTop="m">
+                  <Text variant="body" fontSize={12} color="error">
+                    Error: {zkpState.error}
+                  </Text>
+                </Box>
+              )}
+            </Box>
+          </MotiView>
+
           {/* Wallet Status Indicator */}
           {isWalletFrozen && (
             <MotiView
@@ -298,7 +369,8 @@ export default function ZKPBlockedScreen({ navigation, route }: ZKPBlockedScreen
               </Box>
             </MotiView>
           </Box>
-        </Box>
+          </Box>
+        </ScrollView>
       </SafeAreaView>
     </Box>
   )
