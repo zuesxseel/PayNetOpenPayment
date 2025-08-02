@@ -12,6 +12,18 @@ This is the frontend for the Open Payment mobile application, built with React N
 - Smooth animations using Moti + Reanimated
 - Network support: DuitNow, PayNow, UPI, PromptPay, QRIS
 
+## 🔐 Security Architecture
+
+The app implements a sophisticated security layer with Zero-Knowledge Proof (ZKP) biometric authentication:
+
+![Security Layer Flowchart](frontend/public/securitylayer_flowchart.png)
+
+### Key Security Features:
+- **Biometric Authentication**: Secure facial recognition without storing raw biometric data
+- **Zero-Knowledge Proofs**: Prove identity without revealing sensitive information
+- **Multi-Layer Verification**: Combined biometric + traditional authentication
+- **Privacy-First Design**: Biometric templates never leave the device unencrypted
+
 ## ⚙️ Tech Stack
 
 - Expo SDK 53
