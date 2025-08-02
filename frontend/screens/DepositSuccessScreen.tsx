@@ -368,7 +368,7 @@ export default function DepositSuccessScreen({
                 marginBottom="s"
               >
                 <Text variant="body" fontSize={14} color="secondaryText">
-                  Annual Interest (2.5%)
+                  Daily Return Rate (3.37%)
                 </Text>
                 <Text
                   variant="body"

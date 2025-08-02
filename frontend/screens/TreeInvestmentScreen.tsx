@@ -522,7 +522,7 @@ export default function TreeInvestmentScreen({
                 color="secondaryText"
                 marginBottom="s"
               >
-                • Your balance earns 2.5% annually
+                • Your balance earns 3.37% daily
               </Text>
 
               <Text

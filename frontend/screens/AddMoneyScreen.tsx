@@ -220,7 +220,7 @@ export default function AddMoneyScreen({ navigation }: AddMoneyScreenProps) {
   const [amount, setAmount] = useState("");
   const [donationPercentage, setDonationPercentage] = useState([50]); // Default 50%
 
-  const interestRate = 2.5; // 2.5% annual interest
+  const interestRate = 3.37; // 2.5% annual interest
   const calculatedAmount = Number.parseFloat(amount) || 0;
   const annualInterest = calculatedAmount * (interestRate / 100);
   const donationAmount = annualInterest * (donationPercentage[0] / 100);
@@ -347,7 +347,7 @@ export default function AddMoneyScreen({ navigation }: AddMoneyScreenProps) {
                 </Text>
               </Box>
               <Text variant="body" fontSize={13} color="secondaryText">
-                • Annual Interest Rate: {interestRate}%
+                • Daily Return Rate: {interestRate}%
               </Text>
             </Box>
 

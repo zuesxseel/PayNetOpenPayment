@@ -80,8 +80,8 @@ export default function AIVerificationScreen({ route, navigation }: { route: any
     { message: "Face match successful (98% confidence).", status: "pending" },
     { message: "Conducting liveness check on selfie...", status: "pending" },
     { message: "Liveness check passed – user is physically present.", status: "pending" },
-    { message: "Connecting to national identity database...", status: "pending" },
-    { message: "Cross-checking NRIC and personal details with government records...", status: "pending" },
+    { message: "Connecting to related identity database...", status: "pending" },
+    { message: "Cross-checking NRIC and personal details with related records...", status: "pending" },
     { message: "Personal details verified with official records.", status: "pending" },
     { message: "All verification checks passed!", status: "pending" },
     { message: "Account creation in progress...", status: "pending" },
@@ -102,8 +102,8 @@ export default function AIVerificationScreen({ route, navigation }: { route: any
     { message: "Face match failed (42% confidence) - insufficient similarity.", status: "pending" as const, willFail: true },
     { message: "Conducting liveness check on selfie...", status: "pending" as const, willFail: true },
     { message: "Liveness check failed - potential spoofing detected.", status: "pending" as const, willFail: true },
-    { message: "Connecting to national identity database...", status: "pending" as const },
-    { message: "Cross-checking NRIC and personal details with government records...", status: "pending" as const, willFail: true },
+    { message: "Connecting to related identity database...", status: "pending" as const },
+    { message: "Cross-checking NRIC and personal details with related records...", status: "pending" as const, willFail: true },
     { message: "Personal details mismatch with official records.", status: "pending" as const, willFail: true },
     { message: "Verification failed - multiple checks did not pass.", status: "pending" as const, willFail: true },
   ]
@@ -238,7 +238,7 @@ export default function AIVerificationScreen({ route, navigation }: { route: any
                 • Verifying document authenticity and security features
               </Text>
               <Text variant="body" fontSize={14} color="secondaryText">
-                • Cross-checking with government databases
+                • Cross-checking with related databases
               </Text>
             </Box>
           </MotiView>

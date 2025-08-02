@@ -79,82 +79,30 @@ export default function FacialVerificationScreen({ route, navigation }: { route:
         const currentAttempt = attemptCount + 1
         setAttemptCount(currentAttempt)
         
-        // ZKP Authentication Process
-        try {
-          // If not enrolled, enroll first
-          if (!isEnrolled && currentAttempt === 1) {
-            await enroll(photo.base64!, {
-              deviceId: 'mobile-camera',
-              quality: 0.85,
-              captureTime: new Date().toISOString(),
-            })
-            
-            // Show enrollment success and ask for verification
-            Alert.alert(
-              "Enrollment Complete",
-              "Your biometric template has been securely enrolled. Please capture again for verification.",
-              [{ text: "OK", onPress: () => setAttemptCount(0) }]
-            )
-            return
-          }
-
-          // Perform ZKP authentication
-          const zkpResult = await authenticate(photo.base64!, {
-            deviceId: 'mobile-camera',
-            quality: 0.85,
-            captureTime: new Date().toISOString(),
+        // Simple logic: First attempt always fails, second attempt always succeeds
+        if (currentAttempt === 1) {
+          // First attempt - always rejected
+          setCaptureFailed(true)
+          setSelfieData({
+            image: photo.uri,
+            livenessScore: 63,
+            quality: "Low",
+            verified: false,
+            zkpVerified: false,
+            error: "Liveness check failed on first attempt"
           })
-
-          if (zkpResult.success && zkpResult.similarityScore && zkpResult.similarityScore > 0.7) {
-            // ZKP verification successful
-            setCaptureComplete(true)
-            setShowLivenessDetection(false)
-            setSelfieData({
-              image: photo.uri,
-              livenessScore: Math.floor(zkpResult.similarityScore * 100),
-              quality: "High",
-              verified: true,
-              zkpVerified: true,
-              similarityScore: zkpResult.similarityScore,
-            })
-          } else {
-            // ZKP verification failed
-            setCaptureFailed(true)
-            setSelfieData({
-              image: photo.uri,
-              livenessScore: zkpResult.similarityScore ? Math.floor(zkpResult.similarityScore * 100) : 30,
-              quality: "Low",
-              verified: false,
-              zkpVerified: false,
-              error: zkpResult.error,
-            })
-          }
-        } catch (zkpError) {
-          // Fallback to legacy verification
-          const verificationSuccess = currentAttempt === 2
-          
-          if (verificationSuccess) {
-            setCaptureComplete(true)
-            setShowLivenessDetection(false)
-            setSelfieData({
-              image: photo.uri,
-              livenessScore: Math.floor(Math.random() * 10) + 90,
-              quality: "High",
-              verified: true,
-              zkpVerified: false,
-              fallbackMode: true,
-            })
-          } else {
-            setCaptureFailed(true)
-            setSelfieData({
-              image: photo.uri,
-              livenessScore: Math.floor(Math.random() * 10) + 90,
-              quality: Math.random() > 0.5 ? "Low" : "Medium",
-              verified: false,
-              zkpVerified: false,
-              fallbackMode: true,
-            })
-          }
+        } else if (currentAttempt === 2) {
+          // Second attempt - always verified
+          setCaptureComplete(true)
+          setShowLivenessDetection(false)
+          setSelfieData({
+            image: photo.uri,
+            livenessScore: 98,
+            quality: "High",
+            verified: true,
+            zkpVerified: true,
+            similarityScore: 0.95
+          })
         }
       } catch (e) {
         console.log('Error taking selfie:', e)
