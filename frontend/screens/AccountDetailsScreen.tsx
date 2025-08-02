@@ -35,9 +35,9 @@ interface DuitNowAccount {
 
 const AccountDetailsScreen = ({ navigation }: any) => {
   const [duitNowAccount] = useState<DuitNowAccount>({
-    phoneNumber: "+60 12-345-6789",
-    nric: "123456-78-9012",
-    email: "asthon.hall@email.com",
+    phoneNumber: "+60 12-397 8868",
+    nric: "030102-10-1337",
+    email: "huisiang0102@gmail.com",
     walletId: "WLT-MY-2024-789456",
     isVerified: true,
   })

@@ -325,7 +325,7 @@ export default function UEBAVerificationScreen({ navigation, route }: UEBAVerifi
                     Suspicious Activity Detected
                   </Text>
                   <Text variant="body" fontSize={14} color="secondaryText" lineHeight={20}>
-                    We detected a login attempt from a foreign location. RM {notification?.amount?.replace("RM ", "") || "87.79"} of pending transaction requires verification to proceed.
+                    We detected a payment attempt from a foreign location and unusual anomalies. RM {notification?.amount?.replace("RM ", "") || "87.79"} of pending transaction requires verification to proceed.
                   </Text>
                 </Box>
               </Box>

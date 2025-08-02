@@ -351,7 +351,7 @@ export default function TreeLeaderboardScreen({
     },
     {
       rank: 6,
-      name: "A***** L*****", // Current user
+      name: "N**** H***** S****", // Current user
       treesFunded: 23,
       totalDonated: "460.00",
       daysActive: 45,
